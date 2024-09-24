@@ -55,9 +55,9 @@ architecture Behavioral of Fast_to_Slow is
         );
         port (
             Clk : in STD_LOGIC;
-            D : in STD_LOGIC;                    -- Input of the first FF in the chain
-            Q : out STD_LOGIC;                   -- Output of the last FF in the chain
-            Rst : in STD_LOGIC                   -- Reset input that resets every FF in the chain
+            D   : in STD_LOGIC;                    -- Input of the first FF in the chain
+            Q   : out STD_LOGIC;                   -- Output of the last FF in the chain
+            Rst : in STD_LOGIC                     -- Reset input that resets every FF in the chain
         );
     end component;
 
@@ -69,7 +69,7 @@ architecture Behavioral of Fast_to_Slow is
     signal Fast_Sample_Prev     : std_logic := '0';
     signal Fast_Sample_Extended : std_logic := '0';                                       -- Extended fast sample
     constant CLK_RATIO          : integer := (FAST_CLK_FREQ_MHZ / SLOW_CLK_FREQ_MHZ);     -- Fast clock freq / Slow clock freq
-    constant CLK_RATIO_2X       : integer := CLK_RATIO;                               -- Fast clock freq / Slow clock freq * 2, gives much more fast clock rising edge that the sample should be extended
+    constant CLK_RATIO_2X       : integer := CLK_RATIO;                                   -- Fast clock freq / Slow clock freq * 2, gives much more fast clock rising edge that the sample should be extended
     signal Received_Sample_Sig  : std_logic := '0';
     signal Rst_Sig_Fast         : std_logic := '0';                                       -- Gives the syncronious Rst at every Source_Clock
     signal Rst_Sig_Slow         : std_logic := '0';                                       -- Gives the syncronious Rst at every Source_Clock
