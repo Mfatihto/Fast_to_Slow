@@ -6,13 +6,8 @@ A VHDL implementation of a Clock Domain Crossing (CDC) example that transfers a 
 - [Overview](#overview)
 - [Features](#features)
 - [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Usage](#usage)
 - [Simulation and Synthesis](#simulation-and-synthesis)
 - [Contributing](#contributing)
-- [License](#license)
 - [Acknowledgments](#acknowledgments)
 
 ## Overview
@@ -42,18 +37,4 @@ Clock Domain Crossing is a fundamental concept in digital design, especially whe
 - **scripts/** — Synthesis and simulation scripts
 - **README.md** — Project documentation
 
-## Getting Started
-
-### Prerequisites
-
-- **Vivado Design Suite 2022.2 or later**
-- Basic understanding of VHDL and FPGA design principles
-- A compatible FPGA development board (optional for hardware implementation)
-
-### Installation
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/Mfatihto/Fast_to_Slow_CDC.git
 
