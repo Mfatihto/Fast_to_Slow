@@ -31,3 +31,6 @@ Clock Domain Crossing is a fundamental concept in digital design, especially whe
 - **Modular Design:** Includes reusable components for synchronization (`CDC_FF_IP`).
 - **Reset Synchronization:** Synchronizes reset signals in both fast and slow clock domains.
 - **Vivado Compatible:** Designed for synthesis and implementation using Xilinx Vivado 2022.2.
+
+## Project Structure
+├── Fast_to_Slow.vhd # Top-level VHDL file ├── CDC_FF_IP.vhd # Synchronization flip-flop chain component ├── testbench/ # Directory for testbench files ├── constraints/ # Constraints files (e.g., XDC files) ├── scripts/ # Synthesis and simulation scripts └── README.md # Project documentation
