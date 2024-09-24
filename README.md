@@ -33,11 +33,5 @@ Clock Domain Crossing is a fundamental concept in digital design, especially whe
 - **Vivado Compatible:** Designed for synthesis and implementation using Xilinx Vivado 2022.2.
 
 ## Project Structure
-- Fast_to_Slow.vhd       # Top-level VHDL file
-- CDC_FF_IP.vhd          # Synchronization flip-flop chain component
-- testbench/             # Directory for testbench files
-- constraints/           # Constraints files (e.g., XDC files)
-- scripts/               # Synthesis and simulation scripts
-- README.md              # Project documentation
-
+<pre> <code> Fast_to_Slow_CDC/ ├── Fast_to_Slow.vhd # Top-level VHDL file ├── CDC_FF_IP.vhd # Synchronization flip-flop chain component ├── testbench/ # Directory for testbench files │ └── testbench.vhd # Testbench VHDL file ├── constraints/ # Constraints files (e.g., XDC files) │ └── constraints.xdc # Example constraints file ├── scripts/ # Synthesis and simulation scripts └── README.md # Project documentation </code> </pre>
 
