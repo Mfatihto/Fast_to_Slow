@@ -55,5 +55,5 @@ Clock Domain Crossing is a fundamental concept in digital design, especially whe
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/Fast_to_Slow_CDC.git
+   git clone https://github.com/Mfatihto/Fast_to_Slow_CDC.git
 
