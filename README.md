@@ -42,4 +42,18 @@ Clock Domain Crossing is a fundamental concept in digital design, especially whe
 - **scripts/** — Synthesis and simulation scripts
 - **README.md** — Project documentation
 
+## Getting Started
+
+### Prerequisites
+
+- **Vivado Design Suite 2022.2 or later**
+- Basic understanding of VHDL and FPGA design principles
+- A compatible FPGA development board (optional for hardware implementation)
+
+### Installation
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/yourusername/Fast_to_Slow_CDC.git
 
