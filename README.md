@@ -34,7 +34,6 @@ Clock Domain Crossing is a fundamental concept in digital design, especially whe
   - **testbench.vhd** — Testbench VHDL file
 - **constraints/** — Constraints files (e.g., XDC files)
   - **constraints.xdc** — Example constraints file
-- **scripts/** — Synthesis and simulation scripts
 - **README.md** — Project documentation
 
 ## Simulation and Synthesis
