@@ -120,7 +120,7 @@ begin
     );
     -- End Input Synchronizations --
 
-    CLK_DERIVATION_PROC : process(Clk_Source)              -- Slower clock derivation & signal sampling process
+    CLK_DERIVATION_PROC : process(Clk_Source)              -- Slower clock derivation
     begin
         if(rising_edge(Clk_Source)) then
             Fast_Sample_Prev <= Fast_Sample;
