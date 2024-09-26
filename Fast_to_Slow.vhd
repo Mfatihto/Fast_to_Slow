@@ -41,17 +41,17 @@ architecture Behavioral of Fast_to_Slow is
     component CDC_FF_IP
         generic  (
             N           : integer := 2;						-- Number of flip-flops in the chain
-            ASYNC_RST   : boolean := true				-- true --> async rst, false --> sync rst
+            ASYNC_RST   : boolean := true				    -- true --> async rst, false --> sync rst
         );
         port (
             Clk : in STD_LOGIC;
-            D   : in STD_LOGIC;                    -- Input of the first FF in the chain
-            Q   : out STD_LOGIC;                   -- Output of the last FF in the chain
-            Rst : in STD_LOGIC                   -- Reset input that resets every FF in the chain
+            D   : in STD_LOGIC;                     -- Input of the first FF in the chain
+            Q   : out STD_LOGIC;                    -- Output of the last FF in the chain
+            Rst : in STD_LOGIC                      -- Reset input that resets every FF in the chain
         );
     end component;
 
-    signal Clk_Slow             : std_logic := '0';                                       -- 25 MHz clock
+    signal Clk_Slow             : std_logic := '1';                                       -- 25 MHz clock
     signal Clk_Cntr             : integer range 63 downto 0 := 0;                         -- Counts the rising edges of 100 MHz clock
     signal Extend_Cntr          : integer range 63 downto 0 := 0;                         -- Counter to extend the fast sample by a CLK_RATIO_2X
     signal Extend_Cntr_Enable   : std_logic := '0';   
@@ -59,14 +59,12 @@ architecture Behavioral of Fast_to_Slow is
     signal Fast_Sample_Prev     : std_logic := '0';
     signal Fast_Sample_Extended : std_logic := '0';                                       -- Extended fast sample
     constant CLK_RATIO          : integer := (FAST_CLK_FREQ_MHZ / SLOW_CLK_FREQ_MHZ);     -- Fast clock freq / Slow clock freq
-    constant CLK_RATIO_2X       : integer := CLK_RATIO;                                   -- Fast clock freq / Slow clock freq * 2, gives much more fast clock rising edge that the sample should be extended
+    constant CLK_RATIO_1_5X     : integer := CLK_RATIO + (CLK_RATIO / 2);                 -- Fast clock freq / Slow clock freq * 1.5, gives enough extension for the slower clock to capture it, for more info check Cummings Document about CDC here: http://www.sunburst-design.com/papers/CummingsSNUG2008Boston_CDC.pdf
     signal Received_Sample_Sig  : std_logic := '0';
     signal Rst_Sig_Fast         : std_logic := '0';                                       -- Gives the syncronious Rst at every Source_Clock
     signal Rst_Sig_Slow         : std_logic := '0';                                       -- Gives the syncronious Rst at every Source_Clock
 
 begin
-    
-    Received_Sample <= Received_Sample_Sig;
     
     -- Start Input Synchronizations // REMOVE THEM IF THE UPCOMING INPUTS ARE REGISTERED !! --
     -- CDC_FF_IP is a generic ip that constructs a chain of flip-flops connected to each other, using N the number of flip-flops can be adjusted in the chain
@@ -136,7 +134,7 @@ begin
             end if;
 
             if ((rising_edge(Clk_Source) and Extend_Cntr_Enable = '1')) then
-                if (Extend_Cntr = CLK_RATIO_2X) then
+                if (Extend_Cntr = CLK_RATIO_1_5X) then
                     Fast_Sample_Extended <= '0';
                     Extend_Cntr_Enable <= '0';
                     Extend_Cntr <= 0;
@@ -151,20 +149,18 @@ begin
             Extend_Cntr <= 0;
         end if;
     end process;
-
-    SIGNAL_CAPTURE_PROC : process(Clk_Slow, Rst_Sig_Slow)
-    begin
-        if(Rst_Sig_Slow /= '1') then
-            if (rising_edge(Clk_Slow)) then
-                if(Fast_Sample_Extended = '1') then
-                    Received_Sample_Sig <= '1';
-                else
-                    Received_Sample_Sig <= '0';
-                end if;
-            end if;
-        else
-            Received_Sample_Sig <= '0';
-        end if;
-    end process;
+    
+    OUTPUT_SYNCRONIZER_SLOW_DOMAIN : CDC_FF_IP
+    generic map (
+        N           => 2,
+        ASYNC_RST   => false
+    )
+    port map
+    (
+        Clk         => Clk_Slow,
+        D           => Fast_Sample_Extended,
+        Q           => Received_Sample,
+        Rst         => Rst_Sig_Slow
+    );
 
 end Behavioral;
